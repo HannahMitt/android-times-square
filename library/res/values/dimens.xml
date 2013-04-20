@@ -5,5 +5,5 @@
   <dimen name="calendar_month_title_bottommargin">4dp</dimen>
   <dimen name="calendar_text_medium">18sp</dimen>
   <dimen name="calendar_text_small">14sp</dimen>
-  <dimen name="dot">6dp</dimen>
+  <dimen name="dot">8dp</dimen>
 </resources>

@@ -64,11 +64,13 @@ public class MonthView extends LinearLayout {
 					cellView.setEnabled(cell.isCurrentMonth());
 					cellView.setChecked(!cell.isToday());
 					cellView.setSelected(cell.isSelected());
-					
-					for(int k = 0; k < cell.getDotBackgroundResources().length; k++){
-						cellView.addDot(cell.getDotBackgroundResources()[k]);
+
+					if (cell.isCurrentMonth()) {
+						for (int k = 0; k < cell.getDotBackgroundResources().length; k++) {
+							cellView.addDot(cell.getDotBackgroundResources()[k]);
+						}
 					}
-					
+
 					if (cell.isSelectable()) {
 						cellView.setTextColor(getResources().getColorStateList(R.color.calendar_text_selector));
 					} else {

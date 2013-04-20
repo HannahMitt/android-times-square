@@ -448,7 +448,7 @@ public class CalendarPickerView extends ListView {
 				boolean isSelectable = isCurrentMonth && betweenDates(cal, minCal, maxCal);
 				boolean isToday = sameDate(cal, today);
 				int value = cal.get(DAY_OF_MONTH);
-				int[] resourceIds = { R.color.dot_color_1, R.color.dot_color_2, R.color.dot_color_3 };
+				int[] resourceIds = { R.drawable.dot_background1, R.drawable.dot_background2, R.drawable.dot_background3 };
 				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, resourceIds);
 				if (isSelected) {
 					selectedCells.add(cell);
