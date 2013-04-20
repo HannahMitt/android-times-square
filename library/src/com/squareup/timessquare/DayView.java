@@ -3,7 +3,6 @@ package com.squareup.timessquare;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +10,20 @@ import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 
 public class DayView extends LinearLayout {
+	private Context context;
 	private LayoutInflater layoutInflater;
 	private CheckedTextView checkedTextView;
 	private LinearLayout dotLayout;
 
 	public DayView(Context context) {
 		super(context);
+		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
 	}
 
 	public DayView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
 		initialize(context);
 	}
@@ -33,9 +35,9 @@ public class DayView extends LinearLayout {
 	}
 	
 	public void addDot(int color){
-		View dotView = layoutInflater.inflate(R.layout.dot, null);
+		View dotView = new View(context);
 		dotView.setLayoutParams(new LinearLayout.LayoutParams((int)getResources().getDimension(R.dimen.dot),(int)getResources().getDimension(R.dimen.dot),0));
-		dotView.setBackgroundResource(color);
+		dotView.setBackgroundDrawable(DotUtility.getDotWithColorIndex(context, color));
 		dotLayout.addView(dotView);
 	}
 	

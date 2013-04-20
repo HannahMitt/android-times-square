@@ -1,23 +1,6 @@
 // Copyright 2012 Square, Inc.
 package com.squareup.timessquare;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -27,6 +10,24 @@ import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.YEAR;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Android component to allow picking a date from a calendar view (a list of
@@ -448,8 +449,8 @@ public class CalendarPickerView extends ListView {
 				boolean isSelectable = isCurrentMonth && betweenDates(cal, minCal, maxCal);
 				boolean isToday = sameDate(cal, today);
 				int value = cal.get(DAY_OF_MONTH);
-				int[] resourceIds = { R.drawable.dot_background1, R.drawable.dot_background2, R.drawable.dot_background3 };
-				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, resourceIds);
+				int[] colorIndices = { 1, 2, 3 };
+				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, colorIndices);
 				if (isSelected) {
 					selectedCells.add(cell);
 				}

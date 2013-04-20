@@ -11,17 +11,17 @@ class MonthCellDescriptor {
   private boolean isSelected;
   private final boolean isToday;
   private final boolean isSelectable;
-  private final int[] dotBackgroundResources;
+  private final int[] colorIndices;
 
   MonthCellDescriptor(Date date, boolean currentMonth, boolean selectable, boolean selected,
-      boolean today, int value, int[] dotBackgroundResources) {
+      boolean today, int value, int[] colorIndices) {
     this.date = date;
     isCurrentMonth = currentMonth;
     isSelectable = selectable;
     isSelected = selected;
     isToday = today;
     this.value = value;
-    this.dotBackgroundResources = dotBackgroundResources;
+    this.colorIndices = colorIndices;
   }
 
   public Date getDate() {
@@ -52,8 +52,8 @@ class MonthCellDescriptor {
     return value;
   }
   
-  public int[] getDotBackgroundResources(){
-	  return dotBackgroundResources;
+  public int[] getColorIndices(){
+	  return colorIndices;
   }
 
   @Override public String toString() {
