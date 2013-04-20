@@ -64,11 +64,9 @@ public class MonthView extends LinearLayout {
 					cellView.setEnabled(cell.isCurrentMonth());
 					cellView.setChecked(!cell.isToday());
 					cellView.setSelected(cell.isSelected());
-					if (cell.getValue() % 3 == 0) {
-						cellView.addDot(R.color.dot_color_2);
-					}
-					if(cell.getValue() % 5 == 0){
-						cellView.addDot(R.color.dot_color_3);
+					
+					for(int k = 0; k < cell.getDotBackgroundResources().length; k++){
+						cellView.addDot(cell.getDotBackgroundResources()[k]);
 					}
 					
 					if (cell.isSelectable()) {

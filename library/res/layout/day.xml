@@ -14,14 +14,9 @@
         android:id="@+id/dot_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="false" 
-        android:orientation="horizontal"
-        android:gravity="bottom">
-
-        <View
-            android:layout_width="@dimen/dot"
-            android:layout_height="@dimen/dot"
-            android:background="@color/dot_color_1" />
+        android:clickable="false"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
     </LinearLayout>
 
 </RelativeLayout>
