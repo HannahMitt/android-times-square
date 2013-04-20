@@ -1,16 +1,16 @@
 // Copyright 2012 Square, Inc.
 package com.squareup.timessquare;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.List;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.List;
 
 public class MonthView extends LinearLayout {
   private TextView title;
@@ -59,7 +59,7 @@ public class MonthView extends LinearLayout {
         List<MonthCellDescriptor> week = cells.get(i);
         for (int c = 0; c < week.size(); c++) {
           MonthCellDescriptor cell = week.get(c);
-          CheckedTextView cellView = (CheckedTextView) weekRow.getChildAt(c);
+          DayView cellView = (DayView) weekRow.getChildAt(c);
           cellView.setText(Integer.toString(cell.getValue()));
           cellView.setEnabled(cell.isCurrentMonth());
           cellView.setChecked(!cell.isToday());
