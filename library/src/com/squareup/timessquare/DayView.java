@@ -3,28 +3,40 @@ package com.squareup.timessquare;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 
 public class DayView extends LinearLayout {
+	private LayoutInflater layoutInflater;
 	private CheckedTextView checkedTextView;
+	private LinearLayout dotLayout;
 
 	public DayView(Context context) {
 		super(context);
+		layoutInflater = LayoutInflater.from(context);
 	}
 
 	public DayView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		layoutInflater = LayoutInflater.from(context);
 		initialize(context);
 	}
 	
 	private void initialize(Context context){
-		LayoutInflater inflater = LayoutInflater.from(context);
-	    inflater.inflate(R.layout.day, this, true);
+	    layoutInflater.inflate(R.layout.day, this, true);
 	    checkedTextView = (CheckedTextView) findViewById(R.id.day_text);
+	    dotLayout = (LinearLayout) findViewById(R.id.dot_layout);
+	}
+	
+	public void addDot(int color){
+		View dotView = layoutInflater.inflate(R.layout.dot, null);
+		dotView.setLayoutParams(new LinearLayout.LayoutParams((int)getResources().getDimension(R.dimen.dot),(int)getResources().getDimension(R.dimen.dot),0));
+		dotView.setBackgroundResource(color);
+		dotLayout.addView(dotView);
 	}
 	
 	public void setText(CharSequence text){

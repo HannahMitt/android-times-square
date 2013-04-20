@@ -9,4 +9,7 @@
   <color name="calendar_text_active">#ff778088</color>
   <color name="calendar_text_selected">#ffffffff</color>
   <color name="calendar_text_unselectable">#7f778088</color>
+  <color name="dot_color_1">#FF0000</color>
+  <color name="dot_color_2">#00FF00</color>
+  <color name="dot_color_3">#0000FF</color>
 </resources>
