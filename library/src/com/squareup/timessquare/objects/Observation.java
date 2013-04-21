@@ -5,7 +5,7 @@ import java.util.Date;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Observation implements Parcelable {
+public class Observation implements Parcelable, Comparable<Observation>{
 
 	public Observation(Parcel in) {
 		readFromParcel(in);
@@ -69,4 +69,10 @@ public class Observation implements Parcelable {
 			return new Observation[size];
 		}
 	};
+
+	@Override
+	public int compareTo(Observation another) {
+		return start_time.compareTo(another.start_time);
+	}
+
 }
