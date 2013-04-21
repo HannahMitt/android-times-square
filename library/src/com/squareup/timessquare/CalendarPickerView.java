@@ -22,13 +22,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.squareup.timessquare.objects.Observation;
 
@@ -41,7 +39,6 @@ public class CalendarPickerView extends ListView {
 	private final CalendarPickerView.MonthAdapter adapter;
 	private final DateFormat monthNameFormat;
 	private final DateFormat weekdayNameFormat;
-	private final DateFormat fullDateFormat;
 	private boolean multiSelect;
 	private List<Observation> observations;
 	final List<MonthDescriptor> months = new ArrayList<MonthDescriptor>();
@@ -69,7 +66,6 @@ public class CalendarPickerView extends ListView {
 		setCacheColorHint(bg);
 		monthNameFormat = new SimpleDateFormat(context.getString(R.string.month_name_format));
 		weekdayNameFormat = new SimpleDateFormat(context.getString(R.string.day_name_format));
-		fullDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 	}
 
 	/** Returns whether the user can select several dates or only a single one. */
@@ -296,10 +292,7 @@ public class CalendarPickerView extends ListView {
 	private class CellClickedListener implements MonthView.Listener {
 		@Override
 		public void handleClick(MonthCellDescriptor cell) {
-			if (!betweenDates(cell.getDate(), minCal, maxCal)) {
-				String errMessage = getResources().getString(R.string.invalid_date, fullDateFormat.format(minCal.getTime()), fullDateFormat.format(maxCal.getTime()));
-				Toast.makeText(getContext(), errMessage, Toast.LENGTH_SHORT).show();
-			} else if(cell.isSelectable() && cell.getColorIndices().length > 0) {
+			if (betweenDates(cell.getDate(), minCal, maxCal) && cell.isSelectable() && cell.getColorIndices().length > 0) {
 				Date selectedDate = cell.getDate();
 				Calendar selectedCal = Calendar.getInstance();
 				selectedCal.setTime(selectedDate);
@@ -467,11 +460,9 @@ public class CalendarPickerView extends ListView {
 				for (Observation obs : observations) {
 					if (obs.fallsOnDate(date)) {
 						colorIndices.add(obs.satellite.id);
-					} else {
-						Log.d("Han", "color not found at " + obs.start_time);
 					}
 				}
-				
+
 				Integer[] indices = new Integer[colorIndices.size()];
 				colorIndices.toArray(indices);
 				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, indices);
