@@ -1,6 +1,10 @@
 TimesSquare for Android
 ==========================
 
+Additions from space hackathon - added the ability to put extra views on the days
+
+![Screenshot](calendarSpaceScreenshot.png)
+
 Standalone Android widget for picking a single date from a calendar view.
 
 ![Screenshot](timesSquareScreenshot.png)
