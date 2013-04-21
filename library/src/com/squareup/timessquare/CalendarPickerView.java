@@ -299,7 +299,7 @@ public class CalendarPickerView extends ListView {
 			if (!betweenDates(cell.getDate(), minCal, maxCal)) {
 				String errMessage = getResources().getString(R.string.invalid_date, fullDateFormat.format(minCal.getTime()), fullDateFormat.format(maxCal.getTime()));
 				Toast.makeText(getContext(), errMessage, Toast.LENGTH_SHORT).show();
-			} else {
+			} else if(cell.isSelectable() && cell.getColorIndices().length > 0) {
 				Date selectedDate = cell.getDate();
 				Calendar selectedCal = Calendar.getInstance();
 				selectedCal.setTime(selectedDate);
