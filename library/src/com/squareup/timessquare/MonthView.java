@@ -7,7 +7,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -67,10 +66,7 @@ public class MonthView extends LinearLayout {
 					cellView.setSelected(cell.isSelected());
 
 					cellView.addDots(cell.getColorIndices());
-					if(cell.getColorIndices().length > 1){
-						Log.d("Han", "2 or more");
-					}
-					
+
 					if (cell.isSelectable()) {
 						cellView.setTextColor(getResources().getColorStateList(R.color.calendar_text_selector));
 					} else {

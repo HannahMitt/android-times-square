@@ -16,6 +16,7 @@ public class Observation implements Parcelable {
 
 	public Target target;
 	public Satellite satellite;
+	public Link link;
 	public int revolution;
 
 	public boolean fallsOnDate(Date date){
@@ -44,6 +45,7 @@ public class Observation implements Parcelable {
 		finish_time = (Date) in.readSerializable();
 		target = (Target) in.readSerializable();
 		satellite = (Satellite) in.readSerializable();
+		link = (Link) in.readSerializable();
 		revolution = in.readInt();
 	}
 
@@ -53,6 +55,7 @@ public class Observation implements Parcelable {
 		dest.writeSerializable(finish_time);
 		dest.writeSerializable(target);
 		dest.writeSerializable(satellite);
+		dest.writeSerializable(link);
 		dest.writeInt(revolution);
 	}
 
