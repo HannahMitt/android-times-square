@@ -22,12 +22,15 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.squareup.timessquare.objects.Observation;
 
 /**
  * Android component to allow picking a date from a calendar view (a list of
@@ -40,6 +43,7 @@ public class CalendarPickerView extends ListView {
 	private final DateFormat weekdayNameFormat;
 	private final DateFormat fullDateFormat;
 	private boolean multiSelect;
+	private List<Observation> observations;
 	final List<MonthDescriptor> months = new ArrayList<MonthDescriptor>();
 	final List<List<List<MonthCellDescriptor>>> cells = new ArrayList<List<List<MonthCellDescriptor>>>();
 
@@ -116,6 +120,15 @@ public class CalendarPickerView extends ListView {
 	 *            {@code minDate}.
 	 */
 	public void init(Date selectedDate, Date minDate, Date maxDate) {
+		setMultiSelect(false);
+		initialize(Arrays.asList(selectedDate), minDate, maxDate);
+	}
+
+	/**
+	 * CUSTOM INIT
+	 */
+	public void init(Date selectedDate, Date minDate, Date maxDate, List<Observation> observations) {
+		this.observations = observations;
 		setMultiSelect(false);
 		initialize(Arrays.asList(selectedDate), minDate, maxDate);
 	}
@@ -425,6 +438,7 @@ public class CalendarPickerView extends ListView {
 			if (monthView == null) {
 				monthView = MonthView.create(parent, inflater, weekdayNameFormat, listener, today);
 			}
+			Log.d("Han", "calling getView");
 			monthView.init(months.get(position), cells.get(position));
 			return monthView;
 		}
@@ -437,6 +451,7 @@ public class CalendarPickerView extends ListView {
 		cal.set(DAY_OF_MONTH, 1);
 		int firstDayOfWeek = cal.get(DAY_OF_WEEK);
 		cal.add(DATE, cal.getFirstDayOfWeek() - firstDayOfWeek);
+		int observationsIndex = 0;
 		while ((cal.get(MONTH) < month.getMonth() + 1 || cal.get(YEAR) < month.getYear()) //
 				&& cal.get(YEAR) <= month.getYear()) {
 			Logr.d("Building week row starting at %s", cal.getTime());
@@ -449,7 +464,19 @@ public class CalendarPickerView extends ListView {
 				boolean isSelectable = isCurrentMonth && betweenDates(cal, minCal, maxCal);
 				boolean isToday = sameDate(cal, today);
 				int value = cal.get(DAY_OF_MONTH);
-				int[] colorIndices = { 1, 2, 3 };
+
+				int[] colorIndices = {};
+				while(observations.size() > observationsIndex){
+					Observation obs = observations.get(observationsIndex);
+					if(obs.start_time.after(date)){
+						colorIndices = new int[1];
+						colorIndices[0] = obs.satellite.id;
+						Log.d("HAN", "found color at " + obs.start_time);
+						break;
+					}
+					observationsIndex++;
+				}
+				
 				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, colorIndices);
 				if (isSelected) {
 					selectedCells.add(cell);

@@ -17,6 +17,31 @@
         android:clickable="false"
         android:gravity="bottom"
         android:orientation="horizontal" >
+
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="@dimen/dot"
+            android:layout_height="@dimen/dot" />
+
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="@dimen/dot"
+            android:layout_height="@dimen/dot" />
+
+        <View
+            android:id="@+id/dot3"
+            android:layout_width="@dimen/dot"
+            android:layout_height="@dimen/dot" />
+
+        <View
+            android:id="@+id/dot4"
+            android:layout_width="@dimen/dot"
+            android:layout_height="@dimen/dot" />
+
+        <View
+            android:id="@+id/dot5"
+            android:layout_width="@dimen/dot"
+            android:layout_height="@dimen/dot" />
     </LinearLayout>
 
 </RelativeLayout>
