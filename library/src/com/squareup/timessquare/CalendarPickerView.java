@@ -438,7 +438,6 @@ public class CalendarPickerView extends ListView {
 			if (monthView == null) {
 				monthView = MonthView.create(parent, inflater, weekdayNameFormat, listener, today);
 			}
-			Log.d("Han", "calling getView");
 			monthView.init(months.get(position), cells.get(position));
 			return monthView;
 		}
@@ -451,7 +450,6 @@ public class CalendarPickerView extends ListView {
 		cal.set(DAY_OF_MONTH, 1);
 		int firstDayOfWeek = cal.get(DAY_OF_WEEK);
 		cal.add(DATE, cal.getFirstDayOfWeek() - firstDayOfWeek);
-		int observationsIndex = 0;
 		while ((cal.get(MONTH) < month.getMonth() + 1 || cal.get(YEAR) < month.getYear()) //
 				&& cal.get(YEAR) <= month.getYear()) {
 			Logr.d("Building week row starting at %s", cal.getTime());
@@ -466,17 +464,16 @@ public class CalendarPickerView extends ListView {
 				int value = cal.get(DAY_OF_MONTH);
 
 				int[] colorIndices = {};
-				while(observations.size() > observationsIndex){
-					Observation obs = observations.get(observationsIndex);
-					if(obs.start_time.after(date)){
+				for (Observation obs : observations) {
+					if (obs.fallsOnDate(date)) {
 						colorIndices = new int[1];
 						colorIndices[0] = obs.satellite.id;
-						Log.d("HAN", "found color at " + obs.start_time);
 						break;
+					} else {
+						Log.d("Han", "color not found at " + obs.start_time);
 					}
-					observationsIndex++;
 				}
-				
+
 				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, colorIndices);
 				if (isSelected) {
 					selectedCells.add(cell);

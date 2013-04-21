@@ -18,6 +18,17 @@ public class Observation implements Parcelable {
 	public Satellite satellite;
 	public int revolution;
 
+	public boolean fallsOnDate(Date date){
+		if(date.getYear() >= start_time.getYear() && date.getYear() <= finish_time.getYear()){
+			if(date.getMonth() >= start_time.getMonth() && date.getMonth() <= finish_time.getMonth()){
+				if(date.getDate() >= start_time.getDate() && date.getDate() <= finish_time.getDate()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return satellite.name + "\n" + target.name + "\n" + super.toString();
