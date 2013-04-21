@@ -41,7 +41,7 @@ public class DayView extends LinearLayout {
 		dots[4] = findViewById(R.id.dot5);
 	}
 
-	public void addDots(int[] colorIndices) {
+	public void addDots(Integer[] colorIndices) {
 		for (int i = 0; i < dots.length; i++) {
 			if (colorIndices.length > i) {
 				dots[i].setVisibility(View.VISIBLE);

@@ -11,10 +11,10 @@ class MonthCellDescriptor {
   private boolean isSelected;
   private final boolean isToday;
   private final boolean isSelectable;
-  private final int[] colorIndices;
+  private final Integer[] colorIndices;
 
   MonthCellDescriptor(Date date, boolean currentMonth, boolean selectable, boolean selected,
-      boolean today, int value, int[] colorIndices) {
+      boolean today, int value, Integer[] colorIndices) {
     this.date = date;
     isCurrentMonth = currentMonth;
     isSelectable = selectable;
@@ -52,7 +52,7 @@ class MonthCellDescriptor {
     return value;
   }
   
-  public int[] getColorIndices(){
+  public Integer[] getColorIndices(){
 	  return colorIndices;
   }
 

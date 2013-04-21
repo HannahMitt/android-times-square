@@ -463,18 +463,18 @@ public class CalendarPickerView extends ListView {
 				boolean isToday = sameDate(cal, today);
 				int value = cal.get(DAY_OF_MONTH);
 
-				int[] colorIndices = {};
+				ArrayList<Integer> colorIndices = new ArrayList<Integer>();
 				for (Observation obs : observations) {
 					if (obs.fallsOnDate(date)) {
-						colorIndices = new int[1];
-						colorIndices[0] = obs.satellite.id;
-						break;
+						colorIndices.add(obs.satellite.id);
 					} else {
 						Log.d("Han", "color not found at " + obs.start_time);
 					}
 				}
-
-				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, colorIndices);
+				
+				Integer[] indices = new Integer[colorIndices.size()];
+				colorIndices.toArray(indices);
+				MonthCellDescriptor cell = new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday, value, indices);
 				if (isSelected) {
 					selectedCells.add(cell);
 				}
