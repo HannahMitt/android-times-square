@@ -656,10 +656,6 @@ public class CalendarPickerView extends ListView {
     Calendar minSelectedCal = minDate(selectedCals);
     Calendar maxSelectedCal = maxDate(selectedCals);
 
-    if(indicatorDates != null){
-        Collections.sort(indicatorDates);
-    }
-
     while ((cal.get(MONTH) < month.getMonth() + 1 || cal.get(YEAR) < month.getYear()) //
         && cal.get(YEAR) <= month.getYear()) {
       Logr.d("Building week row starting at %s", cal.getTime());
@@ -689,7 +685,7 @@ public class CalendarPickerView extends ListView {
         List<Integer> indicators = null;
 
         if(indicatorDates != null) {
-            for (IndicatorDate indicatorDate : indicatorDates){
+            for (IndicatorDate indicatorDate : indicatorDates) {
                 if (sameDate(cal, indicatorDate.getDay())){
                     indicators = indicatorDate.getIndicators();
                     break;

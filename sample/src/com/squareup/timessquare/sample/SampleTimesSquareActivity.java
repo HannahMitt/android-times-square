@@ -46,17 +46,16 @@ public class SampleTimesSquareActivity extends Activity {
         .inMode(SelectionMode.SINGLE) //
         .withSelectedDate(new Date());
 
+     // Generate a random sample
     indicatorDates = new ArrayList<IndicatorDate>();
-    int dayIndex = lastYear.get(Calendar.DAY_OF_YEAR);
     Calendar calendarGenerator = Calendar.getInstance();
     calendarGenerator.add(Calendar.YEAR, -1);
     Random rand = new Random();
-    while (dayIndex < 365) {
-        calendarGenerator.set(Calendar.DAY_OF_YEAR, dayIndex);
+    while (calendarGenerator.before(nextYear)) {
         IndicatorDate indicatorDate = new IndicatorDate(calendarGenerator);
         indicatorDate.addIndicator(Color.parseColor("red"));
         indicatorDates.add(indicatorDate);
-        dayIndex += rand.nextInt(7);
+        calendarGenerator.add(Calendar.DAY_OF_MONTH, rand.nextInt(14));
     }
 
     final Button single = (Button) findViewById(R.id.button_single);
