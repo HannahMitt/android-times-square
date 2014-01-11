@@ -660,7 +660,7 @@ public class CalendarPickerView extends ListView {
 
         weekCells.add(
             new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday,
-                isHighlighted, value, rangeState));
+                isHighlighted, value, rangeState, null));
         cal.add(DATE, 1);
       }
     }

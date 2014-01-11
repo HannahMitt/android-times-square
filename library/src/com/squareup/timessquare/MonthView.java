@@ -73,6 +73,16 @@ public class MonthView extends LinearLayout {
           cellView.setRangeState(cell.getRangeState());
           cellView.setHighlighted(cell.isHighlighted());
           cellView.setTag(cell);
+
+          if(cell.getIndicators() != null){
+              DotsDrawable dots = new DotsDrawable();
+
+              for (Integer color : cell.getIndicators()){
+                dots.addDot(color);
+              }
+
+              cellView.setCompoundDrawables(null, null, null, dots);
+          }
         }
       } else {
         weekRow.setVisibility(GONE);

@@ -146,7 +146,7 @@ public class SampleTimesSquareActivity extends Activity {
     indicators.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-            single.setEnabled(false);
+            single.setEnabled(true);
             multi.setEnabled(true);
             range.setEnabled(true);
             displayOnly.setEnabled(true);
