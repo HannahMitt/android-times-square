@@ -45,6 +45,7 @@ public class SampleTimesSquareActivity extends Activity {
     final Button range = (Button) findViewById(R.id.button_range);
     final Button displayOnly = (Button) findViewById(R.id.button_display_only);
     final Button dialog = (Button) findViewById(R.id.button_dialog);
+    final Button indicators = (Button) findViewById(R.id.button_show_date_indicators);
     single.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -52,6 +53,7 @@ public class SampleTimesSquareActivity extends Activity {
         multi.setEnabled(true);
         range.setEnabled(true);
         displayOnly.setEnabled(true);
+        indicators.setEnabled(true);
 
         calendar.init(lastYear.getTime(), nextYear.getTime()) //
             .inMode(SelectionMode.SINGLE) //
@@ -66,6 +68,7 @@ public class SampleTimesSquareActivity extends Activity {
         multi.setEnabled(false);
         range.setEnabled(true);
         displayOnly.setEnabled(true);
+        indicators.setEnabled(true);
 
         Calendar today = Calendar.getInstance();
         ArrayList<Date> dates = new ArrayList<Date>();
@@ -86,6 +89,7 @@ public class SampleTimesSquareActivity extends Activity {
         multi.setEnabled(true);
         range.setEnabled(false);
         displayOnly.setEnabled(true);
+        indicators.setEnabled(true);
 
         Calendar today = Calendar.getInstance();
         ArrayList<Date> dates = new ArrayList<Date>();
@@ -106,6 +110,7 @@ public class SampleTimesSquareActivity extends Activity {
         multi.setEnabled(true);
         range.setEnabled(true);
         displayOnly.setEnabled(false);
+        indicators.setEnabled(true);
 
         calendar.init(new Date(), nextYear.getTime()) //
             .inMode(SelectionMode.SINGLE) //
@@ -136,6 +141,21 @@ public class SampleTimesSquareActivity extends Activity {
         });
         theDialog.show();
       }
+    });
+
+    indicators.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            single.setEnabled(false);
+            multi.setEnabled(true);
+            range.setEnabled(true);
+            displayOnly.setEnabled(true);
+            indicators.setEnabled(false);
+
+            calendar.init(lastYear.getTime(), nextYear.getTime()) //
+                    .inMode(SelectionMode.SINGLE) //
+                    .withSelectedDate(new Date());
+        }
     });
 
     findViewById(R.id.done_button).setOnClickListener(new OnClickListener() {
