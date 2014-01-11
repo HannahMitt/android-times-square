@@ -4,17 +4,22 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.CalendarPickerView.SelectionMode;
+import com.squareup.timessquare.IndicatorDate;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -23,6 +28,7 @@ public class SampleTimesSquareActivity extends Activity {
   private CalendarPickerView calendar;
   private AlertDialog theDialog;
   private CalendarPickerView dialogView;
+  private ArrayList<IndicatorDate> indicatorDates;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,19 @@ public class SampleTimesSquareActivity extends Activity {
     calendar.init(lastYear.getTime(), nextYear.getTime()) //
         .inMode(SelectionMode.SINGLE) //
         .withSelectedDate(new Date());
+
+    indicatorDates = new ArrayList<IndicatorDate>();
+    int dayIndex = lastYear.get(Calendar.DAY_OF_YEAR);
+    Calendar calendarGenerator = Calendar.getInstance();
+    calendarGenerator.add(Calendar.YEAR, -1);
+    Random rand = new Random();
+    while (dayIndex < 365) {
+        calendarGenerator.set(Calendar.DAY_OF_YEAR, dayIndex);
+        IndicatorDate indicatorDate = new IndicatorDate(calendarGenerator);
+        indicatorDate.addIndicator(Color.parseColor("red"));
+        indicatorDates.add(indicatorDate);
+        dayIndex += rand.nextInt(7);
+    }
 
     final Button single = (Button) findViewById(R.id.button_single);
     final Button multi = (Button) findViewById(R.id.button_multi);
@@ -152,7 +171,7 @@ public class SampleTimesSquareActivity extends Activity {
             displayOnly.setEnabled(true);
             indicators.setEnabled(false);
 
-            calendar.init(lastYear.getTime(), nextYear.getTime()) //
+            calendar.init(lastYear.getTime(), nextYear.getTime(), indicatorDates) //
                     .inMode(SelectionMode.SINGLE) //
                     .withSelectedDate(new Date());
         }

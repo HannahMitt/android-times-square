@@ -82,6 +82,8 @@ public class MonthView extends LinearLayout {
               }
 
               cellView.setCompoundDrawables(null, null, null, dots);
+          } else {
+              cellView.setCompoundDrawables(null, null, null, null);
           }
         }
       } else {

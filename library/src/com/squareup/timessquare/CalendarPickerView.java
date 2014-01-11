@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.squareup.timessquare.MonthCellDescriptor.RangeState;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -124,7 +126,7 @@ public class CalendarPickerView extends ListView {
    * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
    * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
    */
-  public FluentInitializer init(Date minDate, Date maxDate, Locale locale) {
+  public FluentInitializer init(Date minDate, Date maxDate, Locale locale, List<IndicatorDate> indicatorDates) {
     if (minDate == null || maxDate == null) {
       throw new IllegalArgumentException(
           "minDate and maxDate must be non-null.  " + dbg(minDate, maxDate));
@@ -186,7 +188,7 @@ public class CalendarPickerView extends ListView {
       MonthDescriptor month =
           new MonthDescriptor(monthCounter.get(MONTH), monthCounter.get(YEAR), date,
               monthNameFormat.format(date));
-      cells.add(getMonthCells(month, monthCounter));
+      cells.add(getMonthCells(month, monthCounter, indicatorDates));
       Logr.d("Adding month %s", month);
       months.add(month);
       monthCounter.add(MONTH, 1);
@@ -208,13 +210,35 @@ public class CalendarPickerView extends ListView {
    * <p>
    * The calendar will be constructed using the default locale as returned by
    * {@link java.util.Locale#getDefault()}. If you wish the calendar to be constructed using a
-   * different locale, use {@link #init(java.util.Date, java.util.Date, java.util.Locale)}.
+   * different locale, use {@link #init(java.util.Date, java.util.Date, java.util.Locale, List<com.squareup.timessquare.IndicatorDate)}.
    *
    * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
    * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
    */
   public FluentInitializer init(Date minDate, Date maxDate) {
-    return init(minDate, maxDate, Locale.getDefault());
+    return init(minDate, maxDate, Locale.getDefault(), null);
+  }
+
+    /**
+     * Both date parameters must be non-null and their {@link Date#getTime()} must not return 0. Time
+     * of day will be ignored.  For instance, if you pass in {@code minDate} as 11/16/2012 5:15pm and
+     * {@code maxDate} as 11/16/2013 4:30am, 11/16/2012 will be the first selectable date and
+     * 11/15/2013 will be the last selectable date ({@code maxDate} is exclusive).
+     * <p>
+     * This will implicitly set the {@link SelectionMode} to {@link SelectionMode#SINGLE}.  If you
+     * want a different selection mode, use {@link FluentInitializer#inMode(SelectionMode)} on the
+     * {@link FluentInitializer} this method returns.
+     * <p>
+     * The calendar will be constructed using the default locale as returned by
+     * {@link java.util.Locale#getDefault()}. If you wish the calendar to be constructed using a
+     * different locale, use {@link #init(java.util.Date, java.util.Date, java.util.Locale, List<com.squareup.timessquare.IndicatorDate)}.
+     *
+     * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
+     * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
+     * @param indicatorDates A list of dates that will display indicators
+     */
+  public FluentInitializer init(Date minDate, Date maxDate, List<IndicatorDate> indicatorDates) {
+      return init(minDate, maxDate, Locale.getDefault(), indicatorDates);
   }
 
   public class FluentInitializer {
@@ -617,7 +641,7 @@ public class CalendarPickerView extends ListView {
     }
   }
 
-  List<List<MonthCellDescriptor>> getMonthCells(MonthDescriptor month, Calendar startCal) {
+  List<List<MonthCellDescriptor>> getMonthCells(MonthDescriptor month, Calendar startCal, List<IndicatorDate> indicatorDates) {
     Calendar cal = Calendar.getInstance(locale);
     cal.setTime(startCal.getTime());
     List<List<MonthCellDescriptor>> cells = new ArrayList<List<MonthCellDescriptor>>();
@@ -631,6 +655,10 @@ public class CalendarPickerView extends ListView {
 
     Calendar minSelectedCal = minDate(selectedCals);
     Calendar maxSelectedCal = maxDate(selectedCals);
+
+    if(indicatorDates != null){
+        Collections.sort(indicatorDates);
+    }
 
     while ((cal.get(MONTH) < month.getMonth() + 1 || cal.get(YEAR) < month.getYear()) //
         && cal.get(YEAR) <= month.getYear()) {
@@ -658,9 +686,20 @@ public class CalendarPickerView extends ListView {
           }
         }
 
+        List<Integer> indicators = null;
+
+        if(indicatorDates != null) {
+            for (IndicatorDate indicatorDate : indicatorDates){
+                if (sameDate(cal, indicatorDate.getDay())){
+                    indicators = indicatorDate.getIndicators();
+                    break;
+                }
+            }
+        }
+
         weekCells.add(
             new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday,
-                isHighlighted, value, rangeState, null));
+                isHighlighted, value, rangeState, indicators));
         cal.add(DATE, 1);
       }
     }
