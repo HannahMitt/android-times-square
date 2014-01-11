@@ -457,11 +457,13 @@ public class CalendarPickerView extends ListView {
 				int value = cal.get(DAY_OF_MONTH);
 
 				ArrayList<Integer> colorIndices = new ArrayList<Integer>();
-				for (Observation obs : observations) {
-					if (obs.fallsOnDate(date)) {
-						colorIndices.add(obs.satellite.id);
-					}
-				}
+                if (observations != null){
+                    for (Observation obs : observations) {
+                        if (obs.fallsOnDate(date)) {
+                            colorIndices.add(obs.satellite.id);
+                        }
+                    }
+                }
 
 				Integer[] indices = new Integer[colorIndices.size()];
 				colorIndices.toArray(indices);
