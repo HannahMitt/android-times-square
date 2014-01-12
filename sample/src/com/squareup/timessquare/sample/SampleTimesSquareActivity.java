@@ -46,17 +46,7 @@ public class SampleTimesSquareActivity extends Activity {
         .inMode(SelectionMode.SINGLE) //
         .withSelectedDate(new Date());
 
-     // Generate a random sample
-    indicatorDates = new ArrayList<IndicatorDate>();
-    Calendar calendarGenerator = Calendar.getInstance();
-    calendarGenerator.add(Calendar.YEAR, -1);
-    Random rand = new Random();
-    while (calendarGenerator.before(nextYear)) {
-        IndicatorDate indicatorDate = new IndicatorDate(calendarGenerator);
-        indicatorDate.addIndicator(Color.parseColor("red"));
-        indicatorDates.add(indicatorDate);
-        calendarGenerator.add(Calendar.DAY_OF_MONTH, rand.nextInt(14));
-    }
+    generateIndicatorDates(nextYear);
 
     final Button single = (Button) findViewById(R.id.button_single);
     final Button multi = (Button) findViewById(R.id.button_multi);
@@ -184,6 +174,29 @@ public class SampleTimesSquareActivity extends Activity {
         Toast.makeText(SampleTimesSquareActivity.this, toast, LENGTH_SHORT).show();
       }
     });
+  }
+
+  // Create an assortment of random indicator dates
+  private void generateIndicatorDates(Calendar nextYear) {
+      indicatorDates = new ArrayList<IndicatorDate>();
+      Calendar calendarGenerator = Calendar.getInstance();
+      calendarGenerator.add(Calendar.YEAR, -1);
+      Random rand = new Random();
+
+      while (calendarGenerator.before(nextYear)) {
+          IndicatorDate indicatorDate = new IndicatorDate(calendarGenerator);
+          indicatorDate.addIndicator(Color.parseColor("red"));
+          indicatorDates.add(indicatorDate);
+          calendarGenerator.add(Calendar.DAY_OF_MONTH, rand.nextInt(10) + 1);
+      }
+
+      for (int i = 0; i < indicatorDates.size(); i += rand.nextInt(5) + 1) {
+          indicatorDates.get(i).addIndicator(Color.parseColor("blue"));
+      }
+
+      for (int i = 0; i < indicatorDates.size(); i += rand.nextInt(10) + 1) {
+          indicatorDates.get(i).addIndicator(Color.parseColor("green"));
+      }
   }
 
   @Override public void onConfigurationChanged(Configuration newConfig) {
