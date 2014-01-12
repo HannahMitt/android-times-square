@@ -687,7 +687,7 @@ public class CalendarPickerView extends ListView {
         if(indicatorDates != null) {
             for (IndicatorDate indicatorDate : indicatorDates) {
                 if (sameDate(cal, indicatorDate.getDay())){
-                    indicators = indicatorDate.getIndicators();
+                    indicators = indicatorDate.getIndicatorColors();
                     break;
                 }
             }
