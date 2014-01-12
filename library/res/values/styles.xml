@@ -24,5 +24,6 @@
     <item name="android:textColor">@color/calendar_text_selector</item>
     <item name="android:clickable">true</item>
     <item name="android:textStyle">bold</item>
+    <item name="android:padding">@dimen/calendar_day_padding</item>
   </style>
 </resources>

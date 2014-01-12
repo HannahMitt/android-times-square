@@ -75,7 +75,7 @@ public class MonthView extends LinearLayout {
           cellView.setTag(cell);
 
           if(cell.getIndicators() != null){
-              DotsDrawable dots = new DotsDrawable();
+              DotsDrawable dots = new DotsDrawable(cellView.getWidth());
 
               for (Integer color : cell.getIndicators()){
                 dots.addDot(color);
