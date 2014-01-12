@@ -185,17 +185,17 @@ public class SampleTimesSquareActivity extends Activity {
 
       while (calendarGenerator.before(nextYear)) {
           IndicatorDate indicatorDate = new IndicatorDate(calendarGenerator);
-          indicatorDate.addIndicator(Color.parseColor("red"));
+          indicatorDate.addIndicator(Color.rgb(74, 145, 0));
           indicatorDates.add(indicatorDate);
           calendarGenerator.add(Calendar.DAY_OF_MONTH, rand.nextInt(10) + 1);
       }
 
       for (int i = 0; i < indicatorDates.size(); i += rand.nextInt(5) + 1) {
-          indicatorDates.get(i).addIndicator(Color.parseColor("blue"));
+          indicatorDates.get(i).addIndicator(Color.rgb(168, 196, 26));
       }
 
       for (int i = 0; i < indicatorDates.size(); i += rand.nextInt(10) + 1) {
-          indicatorDates.get(i).addIndicator(Color.parseColor("green"));
+          indicatorDates.get(i).addIndicator(Color.rgb(26, 77, 107));
       }
   }
 
